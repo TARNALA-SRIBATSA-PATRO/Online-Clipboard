@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: /sitemap.xml
+Sitemap: https://online-clipboard-free.onrender.com/sitemap.xml
