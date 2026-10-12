@@ -3,10 +3,27 @@
   "short_name": "Clipboard",
   "description": "Instant secure clipboard and file transfer with 6-digit retrieval codes.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "orientation": "portrait-primary",
   "background_color": "#0e1014",
   "theme_color": "#0e1014",
+  "categories": ["utilities", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Send Clipboard",
+      "short_name": "Send",
+      "description": "Create a new clipboard note or file transfer",
+      "url": "/#send",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Receive Clipboard",
+      "short_name": "Receive",
+      "description": "Retrieve clipboard with 6-digit code",
+      "url": "/#receive",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
   "icons": [
     {
       "src": "/icon-192.png",
@@ -27,3 +44,4 @@
     }
   ]
 }
+

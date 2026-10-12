@@ -1251,7 +1251,8 @@
     }
   });
 
-  // Floating Mobile Shortcut ("+ Home") & PWA Installation Logic
+  // Desktop & Mobile PWA Installation Logic
+  const desktopInstallBtn = document.getElementById('desktopInstallBtn');
   const floatingShortcutWrap = document.getElementById('floatingShortcutWrap');
   const installShortcutBtn = document.getElementById('installShortcutBtn');
   const dismissShortcutBtn = document.getElementById('dismissShortcutBtn');
@@ -1266,6 +1267,11 @@
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
   const isMobileOrTablet = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 820;
 
+  // Show desktop header install button if not already running as installed app
+  if (desktopInstallBtn && !isStandalone) {
+    desktopInstallBtn.style.display = 'inline-flex';
+  }
+
   function shouldShowMobileShortcut() {
     if (isStandalone) return false;
     if (sessionStorage.getItem('clipboard_shortcut_dismissed') === 'true') return false;
@@ -1276,21 +1282,25 @@
     floatingShortcutWrap.style.display = 'flex';
   }
 
-  // Register Service Worker to satisfy Chrome Android PWA installation criteria
+  // Register Service Worker to satisfy PWA desktop and mobile installation criteria
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(() => {});
   }
 
-  // Intercept PWA install prompt (Chrome, Edge, Samsung Internet, Android)
+  // Intercept PWA install prompt (Chrome, Edge, Brave, Android, Windows, Mac)
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredInstallPrompt = e;
+    if (desktopInstallBtn && !isStandalone) {
+      desktopInstallBtn.style.display = 'inline-flex';
+    }
     if (floatingShortcutWrap && !isStandalone && sessionStorage.getItem('clipboard_shortcut_dismissed') !== 'true') {
       floatingShortcutWrap.style.display = 'flex';
     }
   });
 
   window.addEventListener('appinstalled', () => {
+    if (desktopInstallBtn) desktopInstallBtn.style.display = 'none';
     if (floatingShortcutWrap) floatingShortcutWrap.style.display = 'none';
     deferredInstallPrompt = null;
   });
@@ -1298,7 +1308,21 @@
   function showInstallGuide() {
     if (!installGuideSheet || !installGuideBody) return;
 
-    if (isIos) {
+    if (!isMobileOrTablet) {
+      // Desktop Instructions (Windows, Mac, Linux)
+      if (installGuideTitle) installGuideTitle.textContent = 'Install as Desktop App';
+      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+      installGuideBody.innerHTML = `
+        <p>Run Online Clipboard directly on your desktop with its own window, taskbar icon, and offline support:</p>
+        <ol class="ios-steps-list">
+          <li>Look for the <strong>Install</strong> icon <svg class="inline-sheet-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> in the right side of your browser's address bar.</li>
+          <li>Or click your browser menu (<strong>&vellip;</strong> in Chrome/Brave or <strong>&hellip;</strong> in Edge) &rarr; <strong>Apps</strong> &rarr; <strong>Install Online Clipboard</strong>.</li>
+          ${isMac ? '<li>In Safari (macOS Sonoma+): Click <strong>File</strong> &rarr; <strong>Add to Dock</strong>.</li>' : ''}
+          <li>Click <strong>Install</strong> to place a shortcut on your desktop and taskbar.</li>
+        </ol>
+      `;
+    } else if (isIos) {
+      // iOS Instructions
       if (installGuideTitle) installGuideTitle.textContent = 'Add to Home Screen (iOS)';
       installGuideBody.innerHTML = `
         <p>To open this clipboard directly from your phone's home screen:</p>
@@ -1308,16 +1332,14 @@
         </ol>
       `;
     } else {
-      if (installGuideTitle) installGuideTitle.textContent = 'Add to Home Screen';
+      // Android Instructions
+      if (installGuideTitle) installGuideTitle.textContent = 'Add to Home Screen (Android)';
       installGuideBody.innerHTML = `
-        <p>Because you are connected over local Wi-Fi (HTTP), Chrome requires tapping its browser menu to add the launcher icon:</p>
+        <p>Directly open your clipboard from your phone's home screen:</p>
         <ol class="ios-steps-list">
           <li>Tap the <strong>3 dots (&vellip;)</strong> at the top right of Chrome.</li>
           <li>Tap <strong>Add to Home screen</strong> (or <strong>Install app</strong>).</li>
         </ol>
-        <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.65rem; border-top: 1px solid var(--border-subtle); padding-top: 0.5rem;">
-          <em>Note: Once deployed online (HTTPS on Render), this button will install directly in 1 click!</em>
-        </p>
       `;
     }
     installGuideSheet.style.display = 'flex';
@@ -1327,24 +1349,30 @@
     if (installGuideSheet) installGuideSheet.style.display = 'none';
   }
 
-  if (installShortcutBtn) {
-    installShortcutBtn.addEventListener('click', async () => {
-      if (deferredInstallPrompt) {
-        // Direct native 1-click Chrome Android install dialog (when available / over HTTPS)
-        try {
-          deferredInstallPrompt.prompt();
-          const { outcome } = await deferredInstallPrompt.userChoice;
-          if (outcome === 'accepted' && floatingShortcutWrap) {
-            floatingShortcutWrap.style.display = 'none';
-          }
-          deferredInstallPrompt = null;
-        } catch {
-          showInstallGuide();
+  async function triggerInstallFlow() {
+    if (deferredInstallPrompt) {
+      try {
+        deferredInstallPrompt.prompt();
+        const { outcome } = await deferredInstallPrompt.userChoice;
+        if (outcome === 'accepted') {
+          if (desktopInstallBtn) desktopInstallBtn.style.display = 'none';
+          if (floatingShortcutWrap) floatingShortcutWrap.style.display = 'none';
         }
-      } else {
+        deferredInstallPrompt = null;
+      } catch {
         showInstallGuide();
       }
-    });
+    } else {
+      showInstallGuide();
+    }
+  }
+
+  if (desktopInstallBtn) {
+    desktopInstallBtn.addEventListener('click', triggerInstallFlow);
+  }
+
+  if (installShortcutBtn) {
+    installShortcutBtn.addEventListener('click', triggerInstallFlow);
   }
 
   if (dismissShortcutBtn) {
