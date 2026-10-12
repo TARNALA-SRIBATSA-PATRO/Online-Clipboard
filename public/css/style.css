@@ -213,25 +213,6 @@ body {
   transform: rotate(-90deg);
 }
 
-.card-expand-indicator {
-  display: none;
-  font-family: var(--font-mono);
-  font-size: 0.73rem;
-  font-weight: 500;
-  color: var(--accent-primary);
-  background-color: rgba(230, 81, 0, 0.08);
-  border: 1px solid rgba(230, 81, 0, 0.22);
-  padding: 0.15rem 0.45rem;
-  border-radius: var(--radius-xs);
-  margin-left: 0.35rem;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.field-card.compressed .card-expand-indicator {
-  display: inline-flex;
-}
-
 .field-label-row {
   display: flex;
   align-items: center;
@@ -1549,11 +1530,6 @@ textarea:focus {
 
   .field-card.compressed {
     padding: 0.75rem 0.95rem;
-  }
-
-  .card-expand-indicator {
-    font-size: 0.7rem;
-    padding: 0.12rem 0.35rem;
   }
 
   .sub-meta {
