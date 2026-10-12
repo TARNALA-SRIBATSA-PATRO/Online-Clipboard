@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Online Clipboard – 100% Free, No Login, Instant &amp; Secure Share</title>
+  <meta name="description" content="100% Free online clipboard. Share text, notes, and files across devices instantly with no login, no signup, zero ads, password protection, real-time live sync, and 6-digit codes.">
+  <meta name="keywords" content="online clipboard, temporary pastebin, share text online, free clipboard no login, secure file transfer, no signup clipboard, password protected clipboard, cross device copy paste, burn after reading, instant text sharing, ad free clipboard">
+  <meta name="author" content="Tarnala Sribatsa Patro">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="/">
+
+  <!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
+  <meta property="og:site_name" content="Online Clipboard">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="/">
+  <meta property="og:title" content="Online Clipboard – 100% Free, No Login, Instant &amp; Secure Share">
+  <meta property="og:description" content="Instantly share text, notes, and files across devices. 100% free, no login or signup, zero ads, optional password protection, and real-time live sync.">
+  <meta property="og:image" content="/icon-512.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:image:alt" content="Online Clipboard Icon">
+
+  <!-- Twitter / X Cards -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Online Clipboard – 100% Free, No Login, Instant &amp; Secure Share">
+  <meta name="twitter:description" content="Instantly share text and files across devices with no signup, zero ads, password protection, and real-time sync.">
+  <meta name="twitter:image" content="/icon-512.png">
+
+  <!-- Mobile & PWA Configuration -->
+  <meta name="theme-color" content="#0e1014">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Clipboard">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- JSON-LD Structured Data for Rich Search Snippets & SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "/#webapp",
+        "name": "Online Clipboard",
+        "url": "/",
+        "description": "Fast, private, 100% free cross-device clipboard and file sharing tool requiring no login, no signup, and zero advertisements.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All (Web, iOS, Android, Windows, macOS, Linux)",
+        "inLanguage": "en",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "100% Free forever with zero ads or tracking",
+          "No registration, account creation, or login required",
+          "Optional cryptographic passcode protection (scrypt)",
+          "Instant 6-digit retrieval code and scannable QR code",
+          "Real-time live synchronization as you type",
+          "Multi-file attachments and bulk download up to 50MB",
+          "Configurable self-destruct timers (1m to 30m)",
+          "Native mobile share sheet and PWA home-screen support"
+        ],
+        "creator": {
+          "@type": "Person",
+          "name": "Tarnala Sribatsa Patro"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is Online Clipboard really 100% free with no login or sign up required?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, Online Clipboard is 100% free to use. You do not need to create an account, log in, or provide an email address. You can create and receive clips immediately."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are there any advertisements or banners on this platform?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Online Clipboard has zero advertisements, popups, or sponsor tracking, ensuring a clean, distraction-free experience."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I password-protect my clipboard and files?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. You can optionally set a custom passcode. The clip is secured using cryptographic key derivation, meaning anyone without your password cannot view the content."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Online Clipboard share between phones and computers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Every clip generates an instant 6-digit code, a direct share link, and a QR code. On mobile devices, you can tap Share Link to open your device's native system share sheet directly into WhatsApp, Telegram, Messages, or any app."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does text sync in real-time as I type?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Online Clipboard supports live sync, updating connected devices instantly without requiring manual page reloads."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    /* Critical baseline styles to prevent FOUC and ensure dark mode and SVGs are sized instantly */
+    :root { color-scheme: dark; }
+    body { background-color: #0e1014; color: #f0f2f5; margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    svg { vertical-align: middle; }
+    .brand-icon { width: 22px; height: 22px; }
+    .tab-icon { width: 18px; height: 18px; }
+    .card-toggle-icon { width: 15px; height: 15px; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <!-- Clean Minimalist Header -->
+    <header class="app-header">
+      <div class="brand">
+        <svg class="brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <rect x="8" y="2" width="8" height="4" rx="1.5" ry="1.5"></rect>
+          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+          <path d="M12 11v6"></path>
+          <path d="M9 14l3-3 3 3"></path>
+        </svg>
+        <span class="brand-name">Online Clipboard</span>
+      </div>
+    </header>
+
+    <!-- Ergonomic Nav Tabs (Optimized for thumb reach on mobile) -->
+    <nav class="mode-tabs" role="tablist">
+      <button type="button" class="tab-btn active" id="tabSend" role="tab" aria-selected="true" data-tab="send">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="tab-icon">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+        <span>Send</span>
+      </button>
+      <button type="button" class="tab-btn" id="tabReceive" role="tab" aria-selected="false" data-tab="receive">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="tab-icon">
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+          <rect x="3" y="17" width="18" height="4" rx="1"></rect>
+        </svg>
+        <span>Receive</span>
+      </button>
+    </nav>
+
+    <main class="workspace">
+      <!-- Panel: SEND -->
+      <section class="panel active" id="sendPanel" role="tabpanel">
+        <form id="shareForm" class="composer-form">
+          <!-- Text Input Area -->
+          <div class="field-card" id="primaryTextCard">
+            <div class="field-label-row">
+              <div class="field-label-left">
+                <svg width="15" height="15" class="card-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+                <label for="textContent">Text or Code Snippet</label>
+                <span class="card-expand-indicator">+ Write</span>
+                <span class="live-receiver-badge" id="senderActiveLiveBadge" style="display: none;">
+                  <span class="live-pulse-dot"></span>
+                  <span id="senderLiveStatusText">Live Sync Active</span>
+                </span>
+              </div>
+              <div class="char-counter" id="charCounter">0 characters</div>
+            </div>
+            <div class="textarea-wrap">
+              <textarea 
+                id="textContent" 
+                name="text" 
+                placeholder="Paste notes, links, code, or any text here..." 
+                rows="5"
+                spellcheck="false"
+              ></textarea>
+              <div class="textarea-actions">
+                <button type="button" class="micro-btn" id="pasteClipboardBtn" title="Paste from device clipboard">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                  </svg>
+                  <span>Paste</span>
+                </button>
+                <button type="button" class="micro-btn" id="clearTextBtn" title="Clear text" style="display: none;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                  <span>Clear</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- File Upload Dropzone (Compressed by default) -->
+          <div class="field-card compressed" id="primaryFileCard">
+            <div class="field-label-row">
+              <div class="field-label-left">
+                <svg width="15" height="15" class="card-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+                <label>Attach Files</label>
+                <span class="card-expand-indicator">+ Attach</span>
+              </div>
+              <span class="sub-meta" id="uploadLimitLabel">Max 50MB</span>
+            </div>
+            
+            <label class="dropzone" id="dropzone" for="fileInput">
+              <input type="file" id="fileInput" name="files" multiple class="file-input-hidden">
+              <div class="dropzone-content">
+                <div class="dropzone-icon-wrap">
+                  <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                </div>
+                <div class="dropzone-text-group">
+                  <div class="dropzone-primary-text">
+                    <strong>Tap to choose files</strong> or drag here
+                  </div>
+                  <div class="dropzone-sub-text">
+                    PDF, Images, Video, Audio, Archives, Docs
+                  </div>
+                </div>
+              </div>
+            </label>
+
+            <!-- Staged Files Container with Multi-Select & Delete Icon -->
+            <div class="staged-files-wrap" id="stagedFilesWrap" style="display: none;">
+              <div class="staged-files-toolbar">
+                <label class="staged-select-all-label">
+                  <input type="checkbox" id="selectAllFilesCheckbox" class="staged-checkbox">
+                  <span id="selectedFilesCountText">Select All</span>
+                </label>
+                <div class="staged-toolbar-actions">
+                  <button type="button" class="file-action-icon-btn" id="deleteSelectedFilesBtn" title="Delete selected files" aria-label="Delete selected files">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="3 6 5 6 21 6"></polyline>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                      <line x1="10" y1="11" x2="10" y2="17"></line>
+                      <line x1="14" y1="11" x2="14" y2="17"></line>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="file-list" id="stagedFileList"></div>
+            </div>
+          </div>
+
+          <!-- Options Drawer (Collapsible) -->
+          <div class="options-container">
+            <button type="button" class="options-toggle-btn" id="optionsToggleBtn">
+              <div class="options-toggle-left">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="caret-icon" id="optionsCaret">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+                <span>Security &amp; Expiration Settings</span>
+              </div>
+              <span class="options-hint">Optional</span>
+            </button>
+
+            <div class="options-body" id="optionsBody" style="display: none;">
+              <div class="options-grid">
+                <div class="option-item">
+                  <label for="expirySelect">Auto-Delete After</label>
+                  <select id="expirySelect" name="expiration" class="select-input">
+                    <option value="1m">1 Minute</option>
+                    <option value="2m">2 Minutes</option>
+                    <option value="3m">3 Minutes</option>
+                    <option value="5m" selected>5 Minutes (Default)</option>
+                    <option value="10m">10 Minutes</option>
+                    <option value="15m">15 Minutes</option>
+                    <option value="20m">20 Minutes</option>
+                    <option value="25m">25 Minutes</option>
+                    <option value="30m">30 Minutes</option>
+                  </select>
+                </div>
+
+                <div class="option-item">
+                  <label for="passcode">Access Passcode (Optional)</label>
+                  <div class="password-input-wrap">
+                    <input type="password" id="passcode" name="password" placeholder="Leave empty for public" class="text-input" autocomplete="new-password">
+                    <button type="button" class="eye-toggle-btn" id="togglePasscodeEye" title="Show passcode" aria-label="Toggle passcode visibility">
+                      <svg class="eye-icon eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                      </svg>
+                      <svg class="eye-icon eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="option-checkbox-row">
+                <label class="custom-checkbox">
+                  <input type="checkbox" id="liveSyncToggle" name="liveSync">
+                  <span class="checkmark"></span>
+                  <span class="label-text">
+                    <strong>Real-time Live Share</strong>
+                    <span class="desc">Auto-updates text on receiver's screen live when you edit</span>
+                  </span>
+                </label>
+              </div>
+
+              <div class="option-checkbox-row">
+                <label class="custom-checkbox">
+                  <input type="checkbox" id="burnToggle" name="burnAfterRead">
+                  <span class="checkmark"></span>
+                  <span class="label-text">
+                    <strong>Burn after reading</strong>
+                    <span class="desc">Delete immediately after first pickup (disables live sync)</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Action -->
+          <div class="actions-row">
+            <button type="submit" class="primary-btn" id="submitShareBtn">
+              <span>Generate Receive Code</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="btn-arrow">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+        </form>
+
+        <!-- Share Result Card (Displayed upon code creation) -->
+        <div class="result-card" id="shareResultCard" style="display: none;">
+          <div class="result-header">
+            <h3>Ready for Pickup</h3>
+            <p>Enter this 6-character code on any device or phone to retrieve.</p>
+          </div>
+
+          <div class="code-showcase">
+            <div class="code-display-wrap">
+              <div class="code-digits" id="displayCode">------</div>
+            </div>
+            <button type="button" class="code-copy-pill" id="copyCodeBtn" title="Copy code">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span>Copy Code</span>
+            </button>
+          </div>
+
+          <div class="result-links-row">
+            <div class="direct-link-box">
+              <input type="text" id="displayDirectUrl" readonly class="text-input link-input">
+              <button type="button" class="btn-secondary" id="copyLinkBtn">Copy Link</button>
+            </div>
+          </div>
+
+          <div class="result-extra" id="qrContainer">
+            <div class="qr-box">
+              <img id="qrImage" alt="Direct Link QR Code" class="qr-img">
+              <span class="qr-caption">Scan with mobile camera</span>
+              <button type="button" class="btn-secondary qr-share-btn" id="shareNativeBtn" title="Share via system share menu" aria-label="Share direct link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="share-icon">
+                  <circle cx="18" cy="5" r="3"></circle>
+                  <circle cx="6" cy="12" r="3"></circle>
+                  <circle cx="18" cy="19" r="3"></circle>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+                <span>Share Link</span>
+              </button>
+            </div>
+            <div class="meta-stats" id="shareSummaryStats"></div>
+          </div>
+
+          <div class="result-footer">
+            <button type="button" class="primary-btn" id="returnToEditBtn" style="display: none; margin-bottom: 0.5rem;">
+              <span>Continue Editing (Live Sync)</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="btn-arrow">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+            <button type="button" class="btn-outline full-width-sm" id="newShareBtn">Share New Content</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Panel: RECEIVE -->
+      <section class="panel" id="receivePanel" role="tabpanel">
+        <div class="receive-prompt" id="receivePrompt">
+          <div class="prompt-header">
+            <h2>Enter Receive Code</h2>
+            <p>Type the 6-character code from the sender.</p>
+          </div>
+
+          <form id="receiveForm" class="code-entry-form">
+            <div class="code-input-container">
+              <input 
+                type="text" 
+                id="codeEntryInput" 
+                maxlength="7" 
+                placeholder="000 000" 
+                autocapitalize="characters"
+                autocorrect="off"
+                spellcheck="false"
+                autocomplete="off" 
+                class="massive-code-input"
+              >
+              <div class="code-input-actions">
+                <button type="button" class="micro-btn" id="pasteCodeBtn" title="Paste code from clipboard">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                  </svg>
+                  <span>Paste Code</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Password prompt if protected -->
+            <div class="password-entry-row" id="passcodeEntryRow" style="display: none;">
+              <label for="receivePassword">Passcode Required</label>
+              <div class="password-input-wrap">
+                <input type="password" id="receivePassword" placeholder="Enter security passcode" class="text-input">
+                <button type="button" class="eye-toggle-btn" id="toggleReceivePasswordEye" title="Show passcode" aria-label="Toggle passcode visibility">
+                  <svg class="eye-icon eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                  <svg class="eye-icon eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="receive-actions">
+              <button type="submit" class="primary-btn" id="retrieveBtn">
+                <span>Fetch Content</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="btn-arrow">
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+              </button>
+            </div>
+          </form>
+
+          <div class="error-banner" id="receiveErrorBanner" style="display: none;"></div>
+        </div>
+
+        <!-- Retrieved Payload Display Area -->
+        <div class="payload-display" id="payloadDisplay" style="display: none;">
+          <div class="payload-header">
+            <div class="payload-status">
+              <span class="badge" id="burnBadge" style="display: none;">One-time View</span>
+              <span class="payload-meta-time" id="payloadExpiryText"></span>
+            </div>
+            <div class="payload-actions">
+              <button type="button" class="btn-burn" id="manualBurnBtn" title="Permanently delete from server now">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+                <span>Delete</span>
+              </button>
+              <button type="button" class="btn-outline" id="receiveAnotherBtn">New Search</button>
+            </div>
+          </div>
+
+          <!-- Text content container -->
+          <div class="content-card" id="payloadTextCard" style="display: none;">
+            <div class="card-toolbar">
+              <div class="toolbar-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="tool-icon">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+                <span>Text</span>
+                <span class="meta-tag" id="payloadTextMeta"></span>
+                <span class="live-receiver-badge" id="receiverLiveBadge" style="display: none;">
+                  <span class="live-pulse-dot"></span>
+                  <span>Live</span>
+                </span>
+              </div>
+              <div class="toolbar-actions">
+                <button type="button" class="tool-btn" id="copyPayloadTextBtn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+                <button type="button" class="tool-btn" id="downloadTextFileBtn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>Save .txt</span>
+                </button>
+              </div>
+            </div>
+            <pre class="text-content-box" id="payloadTextContent"></pre>
+          </div>
+
+          <!-- Files list container -->
+          <div class="content-card" id="payloadFilesCard" style="display: none;">
+            <div class="card-toolbar">
+              <div class="toolbar-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="tool-icon">
+                  <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                  <polyline points="13 2 13 9 20 9"></polyline>
+                </svg>
+                <span>Files</span>
+                <span class="meta-tag" id="payloadFileCountMeta"></span>
+              </div>
+              <div class="toolbar-actions">
+                <button type="button" class="tool-btn" id="downloadAllFilesBtn" title="Download all files at once">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>Download All</span>
+                </button>
+              </div>
+            </div>
+            <!-- Search bar (visible if > 1 file is attached) -->
+            <div class="file-search-bar" id="fileSearchWrap" style="display: none;">
+              <div class="file-search-inner">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="fileSearchInput" placeholder="Filter files by name..." class="file-search-input" autocomplete="off" spellcheck="false">
+              </div>
+              <span class="search-count-badge" id="fileSearchCount" style="display: none;"></span>
+            </div>
+            <div class="files-preview-list" id="payloadFilesList"></div>
+            <div class="no-files-found" id="noFilesMatchNotice" style="display: none;">No files match your search filter.</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Semantic SEO & Knowledge Section (Rich HTML for Search Engines & Quick User Guide) -->
+    <section class="seo-showcase-section" aria-label="About Online Clipboard Features and Highlights">
+      <header class="seo-header">
+        <h2 class="seo-headline">The Fast, Free &amp; Private Online Clipboard</h2>
+        <p class="seo-subheadline">
+          Instantly copy, paste, and transfer text and files across any phone, tablet, and PC. 
+          Zero login, zero signup, 100% free, and completely ad-free.
+        </p>
+      </header>
+
+      <!-- Grid of Competitive Advantages & Differentiators -->
+      <div class="seo-grid">
+        <article class="seo-card">
+          <div class="seo-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </div>
+          <h3>100% Free &amp; No Login</h3>
+          <p>Never sign up, create an account, or enter an email. Start sharing instantly without annoying paywalls, subscription tiers, or captchas.</p>
+        </article>
+
+        <article class="seo-card">
+          <div class="seo-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+            </svg>
+          </div>
+          <h3>Zero Ads &amp; Zero Clutter</h3>
+          <p>Unlike bloated pastebins cluttered with popup ads, banners, and slow trackers, Online Clipboard offers an ultra-clean, minimal interface designed purely for speed.</p>
+        </article>
+
+        <article class="seo-card">
+          <div class="seo-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <h3>Password Protected Privacy</h3>
+          <p>Protect sensitive notes, passwords, and tokens with custom passcodes. Content is shielded with cryptographic isolation so only authorized recipients can view it.</p>
+        </article>
+
+        <article class="seo-card">
+          <div class="seo-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <polyline points="1 20 1 14 7 14"></polyline>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+          </div>
+          <h3>Real-Time Live Typing Sync</h3>
+          <p>Experience real-time bidirectional updates. Whatever you type updates seamlessly across connected devices without having to repeatedly reload the page.</p>
+        </article>
+
+        <article class="seo-card">
+          <div class="seo-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+          <h3>Multi-File Sharing &amp; Bulk Download</h3>
+          <p>Attach multiple files up to 50MB with instant in-browser previews for images and text, plus a convenient one-click Download All button.</p>
+        </article>
+
+        <article class="seo-card">
+          <div class="seo-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+          </div>
+          <h3>6-Digit Code &amp; Native Mobile Share</h3>
+          <p>Effortlessly transfer data with an instant 6-digit retrieval code, scannable QR code, or your phone's native system share sheet (WhatsApp, Telegram, Messages).</p>
+        </article>
+      </div>
+
+      <!-- FAQ Section optimized for SEO featured snippets -->
+      <section class="seo-faq-block" aria-label="Frequently Asked Questions">
+        <h3 class="seo-faq-title">Frequently Asked Questions</h3>
+        <div class="seo-faq-list">
+          <details class="faq-item">
+            <summary class="faq-question">How does Online Clipboard work?</summary>
+            <div class="faq-answer">
+              <p>Simply type or paste text into the composer, attach optional files, and click <strong>Create Clipboard</strong>. You receive a unique 6-digit retrieval code, direct link, and QR code to access your content instantly on any other device.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">Is it really 100% free with no login or signup required?</summary>
+            <div class="faq-answer">
+              <p>Yes. You will never be asked for an email address, phone number, password, or credit card. Online Clipboard is completely free and requires zero user registration.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">Are my notes and files secure?</summary>
+            <div class="faq-answer">
+              <p>Yes. You can optionally specify a passcode for sensitive payloads. Furthermore, all clips are ephemeral—they automatically self-destruct after your selected lifespan (from 1 minute to 30 minutes) or immediately upon reading if Burn After Reading is toggled.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">Can I use this without seeing advertisements?</summary>
+            <div class="faq-answer">
+              <p>Yes. Online Clipboard is built with zero banner ads, zero popups, and zero third-party commercial trackers to guarantee top speed and privacy.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">Can I install Online Clipboard on my mobile home screen?</summary>
+            <div class="faq-answer">
+              <p>Yes. Online Clipboard is a Progressive Web App (PWA). On mobile, tap the <strong>+ Home</strong> shortcut button to add it directly to your home screen for one-tap native app access.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+    </section>
+
+    <!-- Compact Single-Line Legal Footer -->
+    <footer class="app-footer">
+      <div class="footer-inline">
+        <span class="footer-copy">&copy; <span id="currentYear"></span> <strong>Tarnala Sribatsa Patro</strong>. All Rights Reserved.</span>
+        <span class="footer-dot">&bull;</span>
+        <button type="button" class="legal-link-btn" id="openTermsBtn">Legal &amp; Disclaimer</button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Legal Notices & Disclaimer Modal -->
+  <div class="modal-backdrop" id="legalModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modalTitle">Terms of Service, Legal Notices &amp; Disclaimers</h3>
+        <button type="button" class="modal-close-btn" id="closeTermsBtn" aria-label="Close legal modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="legal-section">
+          <h4>1. Intellectual Property &amp; Ownership</h4>
+          <p>This website, its source code, architecture, design, and branding are the exclusive property of <strong>Tarnala Sribatsa Patro</strong>. All rights reserved globally. Unauthorized reproduction, modification, scraping, or redistribution without express written consent is strictly prohibited.</p>
+        </div>
+
+        <div class="legal-section">
+          <h4>2. Absolute Limitation of Developer Liability</h4>
+          <p>Online Clipboard is provided strictly on an <strong>"AS IS"</strong> and <strong>"AS AVAILABLE"</strong> basis without warranties of any kind, whether express, statutory, or implied.</p>
+          <p><strong>The developer (Tarnala Sribatsa Patro) shall NOT be held liable, accountable, or responsible</strong> for any direct, indirect, incidental, punitive, or consequential damages resulting from:</p>
+          <ul>
+            <li><strong>Data Loss &amp; Auto-Purging:</strong> Accidental, scheduled, or unexpected loss of uploaded files, notes, credentials, or snippets due to expiration, server maintenance, ephemeral storage recycling, or system interruptions.</li>
+            <li><strong>Phishing, Fraud &amp; Malicious Misuse:</strong> Any malicious, fraudulent, unauthorized, or deceptive activities carried out by third parties using the platform, including phishing campaigns, social engineering, or transmission of harmful software.</li>
+            <li><strong>Security Compromises:</strong> Interception, interception attempts, unauthorized access, or disclosure resulting from shared codes, weak passcodes, or compromised user networks/devices.</li>
+            <li><strong>Prior Notice:</strong> The developer shall not be held liable for failure to provide advance warnings regarding outages, downtime, or data removal.</li>
+          </ul>
+        </div>
+
+        <div class="legal-section">
+          <h4>3. Right to Modify, Update, and Terminate</h4>
+          <p>The developer reserves the sole, unilateral right to update, modify, add, or amend these terms, features, policies, storage limitations, or platform rules <strong>at any time, with or without prior notice to users</strong>. Continued use of the platform constitutes immediate and binding acceptance of all revised terms.</p>
+        </div>
+
+        <div class="legal-section">
+          <h4>4. Acceptable Use &amp; Regulatory Compliance</h4>
+          <p>Users agree to comply with all applicable local, national, and international laws, regulations, and cyber statutes. You may not upload, transmit, or store content that is unlawful, defamatory, copyrighted without authorization, abusive, obscene, or harmful.</p>
+        </div>
+
+        <div class="legal-section">
+          <h4>5. Ephemeral Architecture Notice</h4>
+          <p>This service operates as a temporary transit relay. Content is designed to self-destruct automatically. <strong>Do not use this service as a permanent backup, primary file storage, or cloud archive.</strong></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" id="dismissTermsBtn">I Understand &amp; Agree</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Mobile Shortcut Button (Only visible on non-desktop screens) -->
+  <aside class="floating-shortcut-wrap" id="floatingShortcutWrap" style="display: none;" aria-label="Add to home screen">
+    <button type="button" class="floating-shortcut-btn" id="installShortcutBtn" title="Add shortcut to home screen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="shortcut-icon">
+        <rect x="5" y="2" width="14" height="20" rx="3" ry="3"></rect>
+        <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        <line x1="12" y1="7" x2="12" y2="13"></line>
+        <line x1="9" y1="10" x2="15" y2="10"></line>
+      </svg>
+      <span>+ Home</span>
+    </button>
+    <button type="button" class="shortcut-dismiss-btn" id="dismissShortcutBtn" title="Dismiss" aria-label="Dismiss shortcut button">&times;</button>
+  </aside>
+
+  <!-- Add to Home Screen Instructions Modal (Adaptive for Android / iOS) -->
+  <div class="ios-install-sheet modal-backdrop" id="installGuideSheet" style="display: none;" role="dialog" aria-modal="true">
+    <div class="modal-dialog ios-dialog">
+      <div class="modal-header">
+        <h3 id="installGuideTitle">Add to Home Screen</h3>
+        <button type="button" class="modal-close-btn" id="closeInstallGuideBtn" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body ios-dialog-body" id="installGuideBody">
+        <p>Directly open your clipboard from your phone's home screen:</p>
+        <ol class="ios-steps-list">
+          <li>Tap the browser menu (<strong>&vellip;</strong> in Chrome or <strong>Share</strong> in Safari).</li>
+          <li>Tap <strong>Add to Home screen</strong>.</li>
+        </ol>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" id="gotItInstallGuideBtn">Got It</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
